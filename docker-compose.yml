@@ -24,6 +24,7 @@ services:
       - 3000
     volumes:
       - ./config.json:/yapi/config.json
+      - ./init.lock:/yapi/init.lock
     depends_on:
       - yapi-mongo
     links:
@@ -37,7 +38,7 @@ services:
     expose: 
       - 27017
     volumes:
-      - ./data:/data
+      - ./data/db:/data/db
     restart: unless-stopped
 
 

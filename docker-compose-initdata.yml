@@ -1,0 +1,20 @@
+version: '3'
+
+services:
+  yapi-web:
+    image: jjtyro/yapi:latest
+    container_name: yapi-web
+    command: node /yapi/vendors/server/install.js
+    volumes:
+      - ./config.json:/yapi/config.json
+    depends_on:
+      - yapi-mongo
+    links:
+      - yapi-mongo
+  yapi-mongo:
+    image: mongo:latest
+    container_name: yapi-mongo
+    expose: 
+      - 27017
+    volumes:
+      - ./data/db:/data/db
