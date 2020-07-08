@@ -1,0 +1,43 @@
+version: '3'
+
+services:
+  yapi-nginx:
+    image: nginx:latest
+    container_name: yapi-nginx
+    ports:
+      - 8080:80
+    expose: 
+      - 80
+    volumes: 
+      - ./nginx.conf:/etc/nginx/nginx.conf
+    depends_on: 
+      - yapi-web
+    links: 
+      - yapi-web
+    restart: unless-stopped
+  yapi-web:
+    image: yapi:test
+    container_name: yapi-web
+    ports: 
+      - 40001:3000
+    expose: 
+      - 3000
+    volumes:
+      - ./config.json:/yapi/config.json
+    depends_on:
+      - yapi-mongo
+    links:
+      - yapi-mongo
+    restart: unless-stopped
+  yapi-mongo:
+    image: mongo:latest
+    container_name: yapi-mongo
+    ports:
+      - 27017:27017
+    expose: 
+      - 27017
+    volumes:
+      - ../yapi-db/db:/data/db
+    restart: unless-stopped
+
+
