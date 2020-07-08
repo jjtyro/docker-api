@@ -16,7 +16,7 @@ services:
       - yapi-web
     restart: unless-stopped
   yapi-web:
-    image: yapi:latest
+    image: jjtyro/yapi:latest
     container_name: yapi-web
     ports: 
       - 40001:3000
